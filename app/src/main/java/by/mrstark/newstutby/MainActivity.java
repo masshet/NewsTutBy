@@ -1,11 +1,15 @@
 package by.mrstark.newstutby;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import by.mrstark.newstutby.fragment.ListNewsFragment;
 
 /**
  * Created by mrstark on 23.1.16.
@@ -16,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
     
     private Toolbar toolbar;
     private DrawerLayout layout;
-    private ViewPager viewPager;
+    private ListNewsFragment listNewsFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +32,15 @@ public class MainActivity extends AppCompatActivity {
         
         initToolbar();
         initNavigationView();
-        initTabs();
+        loadFragment();
     }
 
-    private void initTabs() {
+    private void loadFragment() {
+        listNewsFragment = new ListNewsFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container, listNewsFragment);
+        fragmentTransaction.commit();
     }
 
     private void initNavigationView() {
