@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppDefault);
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
-        
+        listNewsFragment = new ListNewsFragment();
+
         initToolbar();
         initNavigationView();
         loadFragment();
     }
 
     private void loadFragment() {
-        listNewsFragment = new ListNewsFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.container, listNewsFragment);

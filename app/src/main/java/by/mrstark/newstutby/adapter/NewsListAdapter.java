@@ -10,16 +10,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.mrstark.newstutby.R;
-import by.mrstark.newstutby.dto.NewsDTO;
+import by.mrstark.newstutby.dto.Item;
 
 /**
  * Created by mrstark on 6.4.16.
  */
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
 
-    private List<NewsDTO> data;
+    private List<Item> data;
 
-    public NewsListAdapter(List<NewsDTO> data) {
+    public NewsListAdapter(List<Item> data) {
         this.data = data;
     }
 
