@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import by.mrstark.newstutby.Client.TutByClient;
+import by.mrstark.newstutby.MainActivity;
 import by.mrstark.newstutby.R;
 import by.mrstark.newstutby.adapter.NewsListAdapter;
 import by.mrstark.newstutby.dto.Item;
@@ -30,6 +30,7 @@ public class ListNewsFragment extends AbstractFragment{
 
     private static final int LAYOUT = R.layout.list_news_fragment;
     private RecyclerView recyclerView;
+    private List<Item> items;
 
     @Nullable
     @Override
@@ -39,18 +40,11 @@ public class ListNewsFragment extends AbstractFragment{
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        test();
+        load();
         return root;
     }
 
-    private List<Item> createList() {
-        List<Item> list = new ArrayList<>();
-        list.add(new Item());
-
-        return list;
-    }
-
-    private void test() {
+    private void load() {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("http://news.tut.by/")
                 .setConverter(new SimpleXMLConverter())
@@ -59,12 +53,13 @@ public class ListNewsFragment extends AbstractFragment{
         client.getItems(new Callback<Rss>() {
             @Override
             public void success(Rss rss, Response response) {
-                recyclerView.setAdapter(new NewsListAdapter(rss.getChannel().getItems()));
+                items = rss.getChannel().getItems();
+                recyclerView.setAdapter(new NewsListAdapter(items));
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

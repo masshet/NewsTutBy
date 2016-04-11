@@ -1,14 +1,16 @@
 package by.mrstark.newstutby;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import by.mrstark.newstutby.dto.Item;
+import by.mrstark.newstutby.fragment.DetailsFragment;
 import by.mrstark.newstutby.fragment.ListNewsFragment;
 
 /**
@@ -54,5 +56,12 @@ public class MainActivity extends AppCompatActivity {
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
+    }
+
+    public void details(Item item) {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, new DetailsFragment(item));
+        fragmentTransaction.commit();
     }
 }
